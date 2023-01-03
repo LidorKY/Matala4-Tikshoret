@@ -192,25 +192,3 @@ unsigned short calculate_checksum(unsigned short *paddress, int len)
 
     return answer;
 }
-int display(void *buf, int bytes)  {  
-	 int i;
-   	struct iphdr *ip = (struct iphdr*)buf;
-    	struct icmphdr *icmp = buf+ip->ihl*4;
-
-    	printf("----------------\n");
-    	for ( i = 0; i < bytes; i++ )      	 {
-        	if ( !(i & 15) ) printf("\n%04X:  ", i);
-        	printf("%02X ", ((unsigned char*)buf)[i]);
-    	}
-    	printf("\n");
-    	printf("IPv%d: hdr-size=%d pkt-size=%d protocol=%d TTL=%d src=%d ",
-           ip->version, ip->ihl*4, ntohs(ip->tot_len), ip->protocol,
-           ip->ttl, ip->saddr);
-    	printf("dst=%d\n", ip->daddr);
-   	 if ( icmp->un.echo.id == ip->id )       	{
-        	printf("ICMP: type[%d/%d] checksum[%d] id[%d] seq[%d]\n",
-            	   icmp->type, icmp->code, ntohs(icmp->checksum),
-            	   icmp->un.echo.id, icmp->un.echo.sequence);
-    	}
-        return 0;
-}
