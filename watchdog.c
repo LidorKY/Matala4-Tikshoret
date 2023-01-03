@@ -14,7 +14,7 @@
 #include "error.h"
 
 
-
+int gettimeofday (struct timeval *, int);
 
 int main()
 {
